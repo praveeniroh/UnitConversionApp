@@ -7,15 +7,15 @@
 
 import Foundation
 
-protocol DataTypeProtocol :CaseIterable{
-    associatedtype DataType
+protocol DataTypeProtocol :CaseIterable,Equatable,Hashable{
+//    associatedtype DataType:CaseIterable
     
     var name:String{get}
     var unitSymbol:String {get}
     
-    static var defaultInputUnit:DataType{get}
-    static var defaultOutputUnit:DataType{get}
+    static var defaultInputUnit:Self{get}
+    static var defaultOutputUnit:Self{get}
     
-    static func convert(from inputUnit:DataType,to outputUnit:DataType,value inputValue:Double)->Double
+    static func convert(from inputUnit:Self,to outputUnit:Self,value inputValue:Double)->Double
     
 }

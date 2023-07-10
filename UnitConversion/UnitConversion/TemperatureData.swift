@@ -15,6 +15,8 @@ enum Temperatures{
     static func convert(from inputUnit:Temperatures,to outputUnit:Temperatures,value inputValue:Double)->Double{
         var outputValue:Double = inputValue
         switch(inputUnit,outputUnit){
+        case (let x,let y) where x == y:
+            break
         case (.celsius,.fahrenheit):
             outputValue = 9/5 * inputValue + 32
         case (.celsius,.kelvin):
@@ -36,7 +38,6 @@ enum Temperatures{
 
 extension Temperatures:DataTypeProtocol{
     
-    typealias DataType = Self
     var name:String{
         switch self {
         case .celsius:

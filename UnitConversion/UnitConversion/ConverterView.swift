@@ -8,14 +8,14 @@
 import SwiftUI
 
 
-struct ConverterView: View {
+struct ConverterView<T:DataTypeProtocol>: View {
     let inputTitle:String = "input temperature"
     let outputTitle:String = "ouput temperature"
     
-    let inputUnits = Temperatures.allCases.map({$0})
-    var outputUnits : [Temperatures]{
-        Temperatures.allCases.filter({temperature in
-            if inputPickerValue == temperature{
+    let inputUnits = T.allCases.map({$0})
+    var outputUnits : [T]{
+        T.allCases.filter({unit in
+            if inputPickerValue == unit{
                 return false
             }else{
                 return true
@@ -23,12 +23,12 @@ struct ConverterView: View {
         })
     }
     
-    var calculateOuputValueUnit:Temperatures{
-        outputUnits.first ?? Temperatures.defaultOutputUnit
+    var calculateOuputValueUnit:T{
+        outputUnits.first ?? T.defaultOutputUnit
     }
     
-    @State var inputPickerValue :Temperatures = Temperatures.defaultInputUnit
-    @State var outputPickerValue:Temperatures = Temperatures.defaultOutputUnit
+    @State var inputPickerValue :T = T.defaultInputUnit
+    @State var outputPickerValue:T = T.defaultOutputUnit
     
     @State var inputValue:Double = 0
     
@@ -47,7 +47,7 @@ struct ConverterView: View {
                 })
                 .pickerStyle(.segmented)
                 .onChange(of: inputPickerValue, perform: {_ in
-                    outputPickerValue = outputUnits.first ?? Temperatures.defaultOutputUnit
+                    outputPickerValue = outputUnits.first ?? T.defaultOutputUnit
                 })
             }
             
@@ -74,7 +74,7 @@ struct ConverterView: View {
                 HStack{
                     Text("Output value")
                     Spacer()
-                    Text(Temperatures.convert(from: inputPickerValue, to: outputPickerValue, value: inputValue),format: .number)
+                    Text(T.convert(from: inputPickerValue, to: outputPickerValue, value: inputValue),format: .number)
                     Text(outputPickerValue.unitSymbol)
                 }
             }
@@ -85,6 +85,6 @@ struct ConverterView: View {
 
 struct ConverterPreview:PreviewProvider{
     static var previews: some View{
-        ConverterView()
+        ConverterView<Temperatures>()
     }
 }
