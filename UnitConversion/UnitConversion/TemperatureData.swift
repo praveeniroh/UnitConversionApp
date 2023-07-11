@@ -7,12 +7,12 @@
 
 import Foundation
 
-enum Temperatures{
+enum TemperatureData{
     case celsius
     case fahrenheit
     case kelvin
-    
-    static func convert(from inputUnit:Temperatures,to outputUnit:Temperatures,value inputValue:Double)->Double{
+    typealias DataType = Self
+    static func convert(from inputUnit:TemperatureData,to outputUnit:TemperatureData,value inputValue:Double)->Double{
         var outputValue:Double = inputValue
         switch(inputUnit,outputUnit){
         case (let x,let y) where x == y:
@@ -36,8 +36,10 @@ enum Temperatures{
     }
 }
 
-extension Temperatures:DataTypeProtocol{
-    
+extension TemperatureData:DataTypeProtocol{
+    static var typeName:String{
+        return "Temperature"
+    }
     var name:String{
         switch self {
         case .celsius:
@@ -60,11 +62,11 @@ extension Temperatures:DataTypeProtocol{
         }
     }
     
-    static var defaultInputUnit:Temperatures{
+    static var defaultInputUnit:TemperatureData{
         .celsius
     }
     
-    static var defaultOutputUnit:Temperatures{
+    static var defaultOutputUnit:TemperatureData{
         .fahrenheit
     }
 }

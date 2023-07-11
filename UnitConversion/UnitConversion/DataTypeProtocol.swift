@@ -8,13 +8,14 @@
 import Foundation
 
 protocol DataTypeProtocol :CaseIterable,Equatable,Hashable{
-//    associatedtype DataType:CaseIterable
+    associatedtype DataType:Hashable
     
     var name:String{get}
     var unitSymbol:String {get}
     
     static var defaultInputUnit:Self{get}
     static var defaultOutputUnit:Self{get}
+    static var typeName:String{get}
     
     static func convert(from inputUnit:Self,to outputUnit:Self,value inputValue:Double)->Double
     

@@ -9,8 +9,9 @@ import SwiftUI
 
 
 struct ConverterView<T:DataTypeProtocol>: View {
-    let inputTitle:String = "input temperature"
-    let outputTitle:String = "ouput temperature"
+    
+    let inputTitle:String = "input Unit"
+    let outputTitle:String = "ouput unit"
     
     let inputUnits = T.allCases.map({$0})
     var outputUnits : [T]{
@@ -85,6 +86,6 @@ struct ConverterView<T:DataTypeProtocol>: View {
 
 struct ConverterPreview:PreviewProvider{
     static var previews: some View{
-        ConverterView<Temperatures>()
+        ConverterView<TemperatureData>()
     }
 }
